@@ -70,7 +70,7 @@ scriptEl.textContent = `
         console.log('%cComparing both the data now!', 'background: blue; color: white; display: inline;');
 
         if(Object.keys(htmlPageDataHolder).length !== Object.keys(excelFileDataHolder).length){
-            console.log('%cSubType Ids of this webpage and the uploaded CCD does not match, please check CCD and CQ lists.', 'background: blue; color: white; display: inline;');
+            console.log('%cSubType Ids of this webpage and the uploaded CCD does not match, please check CCD and CQ lists.', 'background: red; color: black; display: inline;');
             var set1 = new Set(Object.keys(htmlPageDataHolder));
             var set2 = new Set(Object.keys(excelFileDataHolder));
             var setsDifference = new Set([...set1].filter(x=>!set2.has(x)));
@@ -94,7 +94,15 @@ scriptEl.textContent = `
             }
             if(discrepancy){
                 newArray.unshift(curr);
-                bossArray.push(newArray);
+                var tableObj = {
+                    "SubID Keys" : newArray[0],
+                    "SubID Value" : newArray[1],
+                    "ID Keys" : newArray[2],
+                    "ID Values" : newArray[3],
+                    "Descriptions" : newArray[4],
+                    "Instructions" : newArray[5]
+                }
+                bossArray.push(tableObj);
             }
         })
 
