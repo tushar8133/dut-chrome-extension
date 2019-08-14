@@ -2,7 +2,7 @@
   	"manifest_version": 2,
 
 	"name": "WU KYC Validator",
-	"version": "5",
+	"version": "6",
 	"description": "This extension works for westernunion website on DUT KYC Pages. It validates the content of the page against the uploaded CCD",
 
     "permissions": ["activeTab"],

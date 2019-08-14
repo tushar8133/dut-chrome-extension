@@ -51,7 +51,7 @@ scriptEl.textContent = `
             var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
             var newObj = {};
             var final = XL_row_object.map(curr => {
-                var arr = Object.values(curr);
+                var arr = Object.values(curr).map(val => val.trim());
                 newObj[arr[0]] = [arr[1],arr[2],arr[3],arr[4],arr[5]];
             })
 
