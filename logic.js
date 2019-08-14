@@ -62,12 +62,12 @@ scriptEl.textContent = `
 
     function compare(){
         console.clear();
-        console.log('%cBelow is website data', 'background: green; color: white; display: inline;');
+        console.log('%cBelow is website data', 'background: blue; color: white; display: inline;');
         console.table(htmlPageDataHolder);
-        console.log('%cBelow is excel file data', 'background: green; color: white; display: inline;');
+        console.log('%cBelow is excel file data', 'background: blue; color: white; display: inline;');
         console.table(excelFileDataHolder);
 
-        console.log('%cComparing both the data now!', 'background: orange; color: black; display: inline;');
+        console.log('%cComparing both the data now!', 'background: blue; color: white; display: inline;');
 
         if(Object.keys(htmlPageDataHolder).length !== Object.keys(excelFileDataHolder).length){
             console.log('%cSubType Ids of this webpage and the uploaded CCD does not match, please check CCD and CQ lists.', 'background: blue; color: white; display: inline;');
@@ -82,22 +82,30 @@ scriptEl.textContent = `
         Object.keys(htmlPageDataHolder).forEach(function(curr) {
             var arr1 = htmlPageDataHolder[curr];
             var arr2 = excelFileDataHolder[curr];
+            var discrepancy = false;
             var newArray = [];
             for (var i = 0; i < 6; i++) {
-                if (i == 0){
-                    newArray.push(curr);
-                }else if (arr1[i] === arr2[i]) {
+                if (arr1[i] === arr2[i]) {
                     newArray.push(null);
                 } else {
                     newArray.push(arr1[i]);
+                    discrepancy = true;
                 }
             }
-            bossArray.push(newArray);
+            if(discrepancy){
+                newArray.unshift(curr);
+                bossArray.push(newArray);
+            }
         })
 
-        console.log('%cOnly differencial data will be shown in the below table. Similar results will be shown as "null"', 'background: blue; color: white; display: inline;');
-        console.log('%cPlease ignore Column "0" of the table. This is to refer the SubType Ids', 'background: blue; color: white; display: inline;');
-        console.table(bossArray);
+        if(bossArray.length > 0){
+            console.log('%cDiscrepancy found!', 'background: red; color: black; display: inline;');
+            console.log('%cOnly differencial data will be shown in the below table. Similar results will be shown as "null". Also please ignore Column "0" of the table. This is to refer the SubType Ids', 'background: orange; color: black; display: inline;');
+            console.table(bossArray);
+        }else{
+            console.log('%cAll seems fine!', 'background: green; color: white; display: inline;');
+        }
+
 
     }
 
