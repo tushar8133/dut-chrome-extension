@@ -39,7 +39,7 @@ scriptEl.textContent = `
             convertExcelToJson(reader.result);
         };
         reader.onerror = function(e) {
-            console.log('%c File read error.', 'background: blue; color: white; display: block;');
+            console.log('%cFile read error.', 'background: blue; color: white; display: inline;');
             console.log(e);
         };
         reader.readAsBinaryString(file);
@@ -62,18 +62,21 @@ scriptEl.textContent = `
 
     function compare(){
         console.clear();
-        console.log('%c Below is website data', 'background: green; color: white; display: block;');
+        console.log('%cBelow is website data', 'background: green; color: white; display: inline;');
         console.table(htmlPageDataHolder);
-        console.log('%c Below is excel file data', 'background: green; color: white; display: block;');
+        console.log('%cBelow is excel file data', 'background: green; color: white; display: inline;');
         console.table(excelFileDataHolder);
 
-        console.log('%c Comparing both the data now!', 'background: orange; color: black; display: block;');
-        var set1 = new Set(Object.keys(htmlPageDataHolder));
-        var set2 = new Set(Object.keys(excelFileDataHolder));
-        var setsDifference = new Set([...set1].filter(x=>!set2.has(x)));
-        console.log('%c Sub IDs of this webpage and the uploaded CCD does not match, please check CCD or CQ lists.', 'background: blue; color: white; display: block;');
-        console.table(setsDifference);
-        return;
+        console.log('%cComparing both the data now!', 'background: orange; color: black; display: inline;');
+
+        if(Object.keys(htmlPageDataHolder).length !== Object.keys(excelFileDataHolder).length){
+            console.log('%cSubType Ids of this webpage and the uploaded CCD does not match, please check CCD and CQ lists.', 'background: blue; color: white; display: inline;');
+            var set1 = new Set(Object.keys(htmlPageDataHolder));
+            var set2 = new Set(Object.keys(excelFileDataHolder));
+            var setsDifference = new Set([...set1].filter(x=>!set2.has(x)));
+            console.table(setsDifference);
+            return;
+        }
 
         var bossArray = [];
         Object.keys(htmlPageDataHolder).forEach(function(curr) {
@@ -92,6 +95,8 @@ scriptEl.textContent = `
             bossArray.push(newArray);
         })
 
+        console.log('%cOnly differencial data will be shown in the below table. Similar results will be shown as "null"', 'background: blue; color: white; display: inline;');
+        console.log('%cPlease ignore Column "0" of the table. This is to refer the SubType Ids', 'background: blue; color: white; display: inline;');
         console.table(bossArray);
 
     }
