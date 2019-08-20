@@ -1,7 +1,3 @@
-var zipjs = document.createElement('script');
-zipjs.src = "https://unpkg.com/jszip@3.1.5/dist/jszip.min.js";
-document.head.appendChild(zipjs);
-
 var xlsxJS = document.createElement('script');
 xlsxJS.src = "https://unpkg.com/xlsx@0.12.0/dist/xlsx.full.min.js";
 document.head.appendChild(xlsxJS);
